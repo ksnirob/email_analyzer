@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Check Links | Team NA (Beta)",
+  "version": "1.0",
+  "description": "Check for empty href and missing target='_blank' attributes in links.",
+  "permissions": ["activeTab"],
+  "action": {
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}

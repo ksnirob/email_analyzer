@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Link Checker",
+  "version": "1.0",
+  "description": "Check for empty href and missing target='_blank' attributes in links.",
+  "permissions": ["activeTab"],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}

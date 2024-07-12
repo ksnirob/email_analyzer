@@ -1,0 +1,39 @@
+// Select all 'a' tags on the page
+const allLinks = document.querySelectorAll('a');
+
+// Iterate through each link
+allLinks.forEach(link => {
+  // Check if href attribute is empty
+  if (link.getAttribute('href') === '') {
+    // Log the empty link to the console
+    console.warn('Empty link found:', link);
+    // You can also add additional styling or borders here
+    link.style.border = '2px solid red';
+  }
+});
+
+
+
+##----- UPDATED CODE -----##
+
+// Select all 'a' tags on the page
+const allLinks = document.querySelectorAll('a');
+
+let emptyLinksDetected = false;
+
+// Iterate through each link
+allLinks.forEach(link => {
+  // Check if href attribute is empty
+  if (link.getAttribute('href') === '') {
+    // Log the empty link to the console
+    console.warn('Empty link found:', link);
+    // You can also add additional styling or borders here
+    link.style.border = '2px solid red';
+    emptyLinksDetected = true;
+  }
+});
+
+// Display warning alert in the browser if no empty links are detected
+if (!emptyLinksDetected) {
+  alert('No empty links detected.');
+}

@@ -1,0 +1,22 @@
+// Select all 'table' tags on the page
+const allTable = document.querySelectorAll('table');
+
+// Variable to check if all table have role="presentation"
+let alltableHaveRolePresentation = true;
+
+// Iterate through each table
+allTable.forEach(table => {
+  // Check if role="presentation" attribute is not present
+  if (!table.getAttribute('role') || table.getAttribute('role') !== 'presentation') {
+    // Log the table without role="presentation" to the console
+    console.warn('Table without role="presentation" found:', table);
+    // Add orange border to highlight
+    table.style.border = '2px solid orange';
+    alltableHaveRolePresentation = false;
+  }
+});
+
+// Display alert if all links have role="presentation"
+if (alltableHaveRolePresentation) {
+  alert('Everything is okay. All Table have role="presentation".');
+}

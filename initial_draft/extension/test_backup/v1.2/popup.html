@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link Checker</title>
+  <script src="popup.js"></script>
+  <style>
+    h2{
+      text-align: center;
+    }
+    button{
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      margin: 5px 10px;
+      width: 180px;
+      cursor: pointer;
+    }
+    #checkEmptyLinks{
+      background-color: #D2333D;
+      color: white;
+    }
+    #checkEmptyLinks:hover{
+      background-color: #98262e;
+    }
+    #checkTargetBlank{
+      background-color: #E17F3F;
+      color: white;
+    }
+    #checkTargetBlank:hover{
+      background-color: #a9602f;
+    }
+  </style>
+</head>
+<body>
+  <h2>Link Checker</h2>
+  <div class="wrapper">
+    <button id="checkEmptyLinks">Check Empty Links</button>
+    <button id="checkTargetBlank">Check target="_blank"</button>
+  </div>
+</body>
+</html>

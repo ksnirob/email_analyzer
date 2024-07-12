@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELL EMAIL ANALYZE</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <form enctype="multipart/form-data">
+            <label for="htmlFile">Upload HTML file:</label>
+            <input type="file" id="htmlFile" accept=".html" required><br>
+            <label for="imageFolder">Upload Image Folder:</label>
+            <input type="file" id="imageFolder" webkitdirectory="" directory="" multiple accept="image/*" required><br>
+            <button type="button" onclick="checkEmail()">Check</button>
+        </form>
+
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>File Type</th>
+                    <th>File Name</th>
+                    <th>File Size (KB)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>

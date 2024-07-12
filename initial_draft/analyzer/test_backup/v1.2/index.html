@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dell NA Email Analyzer | Version 1.0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            text-align: center;
+            /* padding: 30px;
+            border-radius: 20px;
+            background-color: #f4f4f4; */
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        label {
+            /* margin: 10px 0; */
+            color: #555;
+            display: block;
+        }
+        input {
+            display: block;
+            width: calc(100% - 20px);
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #1B5744;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #244739;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #247554;
+            color: white;
+        }
+        .orange-bg {
+            background-color: #FFA500;
+        }
+        .blue-bg {
+            background-color: #0C32A4;
+            color: white;
+        }
+        .row-bg {
+            background-color: #E5F8FF;
+            /* color: white; */
+        }
+        .red-bg {
+            background-color: #B30B37;
+            color: white;
+        }
+        .no-match-bg {
+            background-color: #FFCCCC; /* Light red for no match */
+        }
+        .unmatched-bg {
+            background-color: #500A96; /* Indigo for unmatched */
+            color: white;
+        }
+        .statistics {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+            color: white;
+        }
+        .statistics div {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .size-over-900 {
+            background-color: #0C32A4; /* Cornflower Blue */
+        }
+        .not-rendered-in-browser {
+            background-color: #B30B37; /* Tomato */
+        }
+        .unmatched-prefix {
+            background-color: #500A96; /* Blue Violet */
+        }
+        #prefix{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        #prefixSection{
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="90px" height="53px">
+            <rect width="100%" height="100%" fill="white" fill-opacity="0" />
+            <image xlink:href="data:image/png;base64,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" x="0" y="0" width="90px"/>
+          </svg>
+        <!-- <img src="./images/dell_logo.png" alt="Dell Technologies" width="90px" /> -->
+        <h1>Dell NA Email Analyzer</h1>
+        <form enctype="multipart/form-data" id="uploadForm">
+            <label for="htmlFile">Upload HTML file:</label>
+            <input type="file" id="htmlFile" accept=".html" required>
+            <label for="imageFolder">Upload Image Folder:</label>
+            <input type="file" id="imageFolder" webkitdirectory="" directory="" multiple accept="image/*" required>
+            <button type="button" onclick="analyzeTemplate()">Analyze Email</button>
+        </form>
+
+        <div id="prefixSection" style="display: none;">
+            <label for="prefix">Enter Production Name Prefix for Matching Files:</label>
+            <input type="text" id="prefix" placeholder="Enter Production Name Prefix">
+            <button type="button" onclick="matchFiles()">Check Files Name</button>
+        </div>
+
+        <div class="statistics" id="statisticsSection">
+            <div class="size-over-900" id="sizeOver900Count">Large Image: 0</div>
+            <div class="not-rendered-in-browser" id="notRenderedInBrowserCount">Extra Images: 0</div>
+            <div class="unmatched-prefix" id="unmatchedPrefixCount">Unmatched File Name: 0</div>
+        </div>
+
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>File Type</th>
+                    <th>File Name</th>
+                    <th>File Size (KB)</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <script>
+            function analyzeTemplate() {
+                var htmlFileInput = document.getElementById('htmlFile');
+                var imageFolderInput = document.getElementById('imageFolder');
+                var prefixSection = document.getElementById('prefixSection');
+                var statisticsSection = document.getElementById('statisticsSection');
+
+                var htmlFileName = htmlFileInput.files[0].name;
+                var imageData = [];
+                var sizeOver900Count = 0;
+                notRenderedInBrowserCount = 0;
+
+                for (var i = 0; i < imageFolderInput.files.length; i++) {
+                    var imageFile = imageFolderInput.files[i];
+                    imageData.push({
+                        name: imageFile.name,
+                        size: (imageFile.size / 1024).toFixed(2)
+                    });
+                }
+
+                var dataTable = document.getElementById('dataTable');
+                var tbody = dataTable.querySelector('tbody');
+                tbody.innerHTML = '';
+
+                // Parse the HTML file
+                var htmlReader = new FileReader();
+                htmlReader.onload = function (event) {
+                    var htmlContent = event.target.result;
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(htmlContent, 'text/html');
+                    var htmlImages = Array.from(doc.querySelectorAll('img')).map(img => img.src);
+
+                    // prefix
+                    prefixSection.style.display = 'block';
+                    statisticsSection.style.display = 'block';
+
+                    for (var i = 0; i < imageData.length; i++) {
+                        var row = tbody.insertRow(tbody.rows.length);
+                        var fileTypeCell = row.insertCell(0);
+                        var fileNameCell = row.insertCell(1);
+                        var fileSizeCell = row.insertCell(2);
+
+                        if (i === 0) {
+                            fileTypeCell.textContent = 'HTML';
+                            fileNameCell.textContent = htmlFileName;
+                            fileSizeCell.textContent = '-';
+                        } else {
+                            fileTypeCell.textContent = 'Image';
+                            fileNameCell.textContent = imageData[i].name;
+                            fileSizeCell.textContent = imageData[i].size;
+
+                            if (parseFloat(imageData[i].size) > 900) {
+                                row.classList.add('blue-bg');
+                                sizeOver900Count++;
+                            } else {
+                                var isUsed = htmlImages.includes(imageData[i].name);
+                                if (isUsed) {
+                                    row.classList.add('orange-bg');
+                                } else {
+                                    row.classList.add('row-bg');
+                                    var isNotRendered = !htmlContent.includes(imageData[i].name);
+                                    if (isNotRendered) {
+                                        row.classList.remove('row-bg');
+                                        row.classList.add('red-bg');
+                                        notRenderedInBrowserCount++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Update counts
+                    document.getElementById('sizeOver900Count').textContent = 'Large Image: ' + sizeOver900Count;
+                    document.getElementById('notRenderedInBrowserCount').textContent = 'Extra Images: ' + notRenderedInBrowserCount;
+                };
+
+                htmlReader.readAsText(htmlFileInput.files[0]);
+            }
+
+            function matchFiles() {
+                var prefixInput = document.getElementById('prefix');
+                var prefix = prefixInput.value.trim().toLowerCase();
+
+                var dataTable = document.getElementById('dataTable');
+                var tbody = dataTable.querySelector('tbody');
+                var rows = tbody.getElementsByTagName('tr');
+
+                var hasMatch = false;
+                var unmatchedPrefixCount = 0;
+
+                for (var i = 0; i < rows.length; i++) {
+                    var fileName = rows[i].cells[1].textContent.toLowerCase();
+                    var fileType = rows[i].cells[0].textContent.toLowerCase();
+
+                    if (fileType === 'html') {
+                        continue;
+                    }
+
+                    var isVisible = !rows[i].hasAttribute('style') || rows[i].style.display !== 'none';
+                    if (isVisible && (prefix === '' || fileName.includes(prefix))) {
+                        rows[i].classList.remove('unmatched-bg'); 
+                        hasMatch = true;
+                    } else {
+                        rows[i].classList.add('unmatched-bg');
+                        unmatchedPrefixCount++;
+                    }
+                }
+
+                document.getElementById('unmatchedPrefixCount').textContent = 'Unmatched File Name: ' + unmatchedPrefixCount;
+
+                if (!hasMatch) {
+                    tbody.innerHTML = '<tr class="no-match-bg"><td colspan="3">No matching files found.</td></tr>';
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+
+##---- Check List ----##
+
+1. Empty link  **
+2. Target blank  **
+3. Role presentation attribute  **
+4. Hidden banner  **
+5. Alt text
+6. Image size
+7. Tracking pixel
+8. Broken link
+9. Extra image
+10. Big size image
+11. Font name & size
+12. Color code
+13. b, br, u tag
+14. Spacing
+15. View online code
+16. Copyright year code
+
+
+
+##---- Draft ----##
+
+17. Text version
+18. W3C validation
+19. Table information
+20. Incomplete tag / Error
