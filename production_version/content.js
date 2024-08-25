@@ -76,5 +76,73 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         console.error("Error setting innerHTML:", error);
     }
 }
+
+  // Show b tag
+
+  // Select all <b> tags
+  const boldTags = document.querySelectorAll('b');
+
+  // Apply red border to each tag
+  boldTags.forEach(tag => {
+      tag.style.border = '1px solid red';
+  });
+
+  // Show u tag
+
+  // Select all <u> tags
+  const uTags = document.querySelectorAll('u');
+
+  // Apply red border to each tag
+  uTags.forEach(tag => {
+      tag.style.border = '1px solid red';
+  });
+
+
+  // Show font name and font size tag
+
+  // Replace 'your-selector' with the CSS selector for the elements you want to inspect
+const targetElements = document.querySelectorAll('your-selector');
+
+if (targetElements.length > 0) {
+  targetElements.forEach((element) => {
+    const computedStyle = window.getComputedStyle(element);
+    const fontFamily = computedStyle.getPropertyValue('font-family');
+    const fontSize = computedStyle.getPropertyValue('font-size');
+
+    // Create a tooltip element
+    const tooltip = document.createElement('div');
+    tooltip.textContent = `Font Family: ${fontFamily}, Font Size: ${fontSize}`;
+    tooltip.style.position = 'absolute';
+    tooltip.style.background = 'white';
+    tooltip.style.border = '1px solid #ccc';
+    tooltip.style.padding = '4px';
+    tooltip.style.fontFamily = 'Arial, sans-serif';
+    tooltip.style.fontSize = '12px';
+    tooltip.style.zIndex = '9999'; // Ensure it's on top
+    tooltip.style.display = 'none'; // Initially hidden
+
+    // Show tooltip on hover
+    element.addEventListener('mouseenter', () => {
+      tooltip.style.display = 'block';
+    });
+
+    // Hide tooltip when not hovering
+    element.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+
+    // Position the tooltip near the element
+    const rect = element.getBoundingClientRect();
+    tooltip.style.left = `${rect.left + window.scrollX}px`;
+    tooltip.style.top = `${rect.bottom + window.scrollY}px`;
+
+    // Append the tooltip to the body
+    document.body.appendChild(tooltip);
+  });
+} else {
+  console.error('No elements found for the specified selector.');
+}
+
+
 });
   
