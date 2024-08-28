@@ -143,25 +143,31 @@ if (targetElements.length > 0) {
   console.error('No elements found for the specified selector.');
 }
 
-// Show image information
-
-// Get all image elements on the page
+/// Get all image elements on the page
 const images = document.querySelectorAll('img');
 
-// Loop through each image and display its dimensions and file size
+// Loop through each image and display its dimensions
 images.forEach((image, index) => {
     const width = image.naturalWidth;
     const height = image.naturalHeight;
-    const fileSizeKB = Math.round(image.src.length / 1024); // Calculate file size in KB
 
-    // Create a new element to display information
-    const infoElement = document.createElement('div');
-    infoElement.textContent = `Image ${index + 1}: height ${height}px, width ${width}px, size ${fileSizeKB}KB`;
-    infoElement.style.border = '1px solid red'; // Add a red border for visibility
+    // Create a new element to display dimensions
+    const dimensionsElement = document.createElement('div');
+    dimensionsElement.textContent = `${width}px × ${height}px`; // Text content with dimensions
+    dimensionsElement.style.display = 'inline-block'; // Display as inline block
+    dimensionsElement.style.background = 'rgba(0, 0, 0, 0.7)'; // Semi-transparent black background
+    dimensionsElement.style.color = 'white'; // White text color
+    dimensionsElement.style.padding = '4px 8px'; // Add padding
+    dimensionsElement.style.fontSize = '18px'; // Adjust font size
+    dimensionsElement.style.textAlign = 'center'; // Center the text
 
-    // Append the info element after the image
-    image.insertAdjacentElement('afterend', infoElement);
+    // Apply a red border to the image
+    image.style.border = '1px dashed red';
+
+    // Append the dimensions element after the image
+    image.insertAdjacentElement('afterend', dimensionsElement);
 });
+
 
 
 });
