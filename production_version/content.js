@@ -201,4 +201,48 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
   
 
+    // Check mirrorPageURL code"
+  if (request.action === 'mirrorPageURL') {
+      
+
+    const allLinks = document.querySelectorAll('a');
+  
+    let mirrorPageURLDetected = false;
+
+    allLinks.forEach(link => {
+      if (link.getAttribute('href') === `"<%@ include view='MirrorPageUrl' %>"`) {
+        // console.warn('Empty link found:', link);
+        link.style.border = '2px solid #D2333D';
+        link.style.padding = '2px';
+        mirrorPageURLDetected = true;
+      }
+    });
+
+    if (!mirrorPageURLDetected) {
+      alert('View in browser have MirrorPageUrl Code.');
+    } else {
+      alert('MirrorPageUrl Code not found.');
+    }
+  }
+  
+    // Check trackingPixel code"
+    if (request.action === 'trackingPixel') {
+      const allLinks = document.querySelectorAll('a');
+  
+      let trackingPixelDetected = false;
+
+      allLinks.forEach(link => {
+        if (link.getAttribute('href') === 'https://t.myvisualiq.net') {
+          // console.warn('Empty link found:', link);
+          link.style.border = '2px solid #D2333D';
+          link.style.padding = '2px';
+          trackingPixelDetected = true;
+        }
+      });
+  
+      if (!trackingPixelDetected) {
+        alert('Tracking Pixel found in code.');
+      }
+    }
+  
 });
