@@ -38,4 +38,35 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
   
+
+  document.getElementById('checkBTag').addEventListener('click', function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {action: 'checkBTag'});
+    });
+  });
+
+  document.getElementById('checkUTag').addEventListener('click', function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {action: 'checkUTag'});
+    });
+  });
+
+  document.getElementById('fontInformation').addEventListener('click', function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {action: 'fontInformation'});
+    });
+  });
+
+  document.getElementById('imageInformation').addEventListener('click', function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {action: 'imageInformation'});
+    });
+  });
+
+  document.getElementById('altText').addEventListener('click', function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {action: 'altText'});
+    });
+  });
+
 });
