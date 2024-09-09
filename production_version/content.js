@@ -203,8 +203,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     // Check mirrorPageURL code"
   if (request.action === 'mirrorPageURL') {
-      
-
     const allLinks = document.querySelectorAll('a');
   
     let mirrorPageURLDetected = false;
