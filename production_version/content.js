@@ -105,47 +105,56 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // Show font name and font size tag
   if (request.action === 'fontInformation') {
 
-  const targetElements = document.querySelectorAll('a, span, b');
+    const targetElements = document.querySelectorAll('a, span, b');
 
-  if (targetElements.length > 0) {
-  targetElements.forEach((element) => {
-    const computedStyle = window.getComputedStyle(element);
-    const fontFamily = computedStyle.getPropertyValue('font-family');
-    const fontSize = computedStyle.getPropertyValue('font-size');
-
-    // Create a tooltip element
-    const tooltip = document.createElement('div');
-    tooltip.textContent = `Font Family: ${fontFamily}, Font Size: ${fontSize}`;
-    tooltip.style.position = 'absolute';
-    tooltip.style.background = 'white';
-    tooltip.style.border = '1px solid #ccc';
-    tooltip.style.padding = '4px';
-    tooltip.style.fontFamily = 'Arial, sans-serif';
-    tooltip.style.fontSize = '12px';
-    tooltip.style.zIndex = '9999'; // Ensure it's on top
-    tooltip.style.display = 'none'; // Initially hidden
-
-    // Show tooltip on hover
-    element.addEventListener('mouseenter', () => {
-      tooltip.style.display = 'block';
-    });
-
-    // Hide tooltip when not hovering
-    element.addEventListener('mouseleave', () => {
-      tooltip.style.display = 'none';
-    });
-
-    // Position the tooltip near the element
-    const rect = element.getBoundingClientRect();
-    tooltip.style.left = `${rect.left + window.scrollX}px`;
-    tooltip.style.top = `${rect.bottom + window.scrollY}px`;
-
-    // Append the tooltip to the body
-    document.body.appendChild(tooltip);
-  });
-} else {
-  console.error('No elements found for the specified selector.');
-}
+    if (targetElements.length > 0) {
+      targetElements.forEach((element) => {
+    
+        // If the current element is <b> or <span> and it is inside an <a>, skip it
+        if ((element.tagName === 'B' || element.tagName === 'SPAN') && element.closest('a')) {
+          return; // Skip processing this element
+        }
+    
+        // Get the computed styles of the element (or <a> if it's <a>)
+        const computedStyle = window.getComputedStyle(element);
+        const fontFamily = computedStyle.getPropertyValue('font-family');
+        const fontSize = computedStyle.getPropertyValue('font-size');
+    
+        // Create a tooltip element
+        const tooltip = document.createElement('div');
+        tooltip.textContent = `Font Family: ${fontFamily}, Font Size: ${fontSize}`;
+        tooltip.style.position = 'absolute';
+        tooltip.style.background = 'rgba(0, 0, 0, 0.7)';
+        tooltip.style.color = 'white';
+        // tooltip.style.border = '1px solid #ccc';
+        tooltip.style.padding = '4px';
+        tooltip.style.fontFamily = 'Arial, sans-serif';
+        tooltip.style.fontSize = '16px';
+        tooltip.style.zIndex = '9999'; // Ensure it's on top
+        tooltip.style.display = 'none'; // Initially hidden
+    
+        // Show tooltip on hover
+        element.addEventListener('mouseenter', () => {
+          tooltip.style.display = 'block';
+        });
+    
+        // Hide tooltip when not hovering
+        element.addEventListener('mouseleave', () => {
+          tooltip.style.display = 'none';
+        });
+    
+        // Position the tooltip near the element
+        const rect = element.getBoundingClientRect();
+        tooltip.style.left = `${rect.left + window.scrollX}px`;
+        tooltip.style.top = `${rect.bottom + window.scrollY}px`;
+    
+        // Append the tooltip to the body
+        document.body.appendChild(tooltip);
+      });
+    } else {
+      console.error('No elements found for the specified selector.');
+    }
+    
     }
 
   // Show u tag
@@ -165,7 +174,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     dimensionsElement.style.background = 'rgba(0, 0, 0, 0.7)'; // Semi-transparent black background
     dimensionsElement.style.color = 'white'; // White text color
     dimensionsElement.style.padding = '4px 8px'; // Add padding
-    dimensionsElement.style.fontSize = '18px'; // Adjust font size
+    dimensionsElement.style.fontSize = '14px'; // Adjust font size
     dimensionsElement.style.textAlign = 'center'; // Center the text
 
     // Apply a red border to the image
@@ -204,7 +213,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // Check mirrorPageURL code"
   if (request.action === 'mirrorPageURL') {
 
-    // Define the code snippet you are looking for
     var codeSnippet = "<%@ include view='MirrorPageUrl' %>";
 
     // Get the entire HTML of the page
@@ -220,7 +228,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   
     // Check trackingPixel code"
   if (request.action === 'trackingPixel') {
-    // Define the code snippet you are looking for
+
     var codeSnippet = "https://t.myvisualiq.net";
 
     // Get the entire HTML of the page
