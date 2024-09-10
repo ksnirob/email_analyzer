@@ -104,8 +104,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   // Show font name and font size tag
   if (request.action === 'fontInformation') {
-    // Replace 'your-selector' with the CSS selector for the elements you want to inspect
-  const targetElements = document.querySelectorAll('your-selector');
+
+  const targetElements = document.querySelectorAll('a, span, b');
 
   if (targetElements.length > 0) {
   targetElements.forEach((element) => {
@@ -203,44 +203,34 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
     // Check mirrorPageURL code"
   if (request.action === 'mirrorPageURL') {
-    const allLinks = document.querySelectorAll('a');
-  
-    let mirrorPageURLDetected = false;
 
-    allLinks.forEach(link => {
-      if (link.getAttribute('href') === `"<%@ include view='MirrorPageUrl' %>"`) {
-        // console.warn('Empty link found:', link);
-        link.style.border = '2px solid #D2333D';
-        link.style.padding = '2px';
-        mirrorPageURLDetected = true;
-      }
-    });
+    // Define the code snippet you are looking for
+    var codeSnippet = "<%@ include view='MirrorPageUrl' %>";
 
-    if (!mirrorPageURLDetected) {
-      alert('View in browser have MirrorPageUrl Code.');
+    // Get the entire HTML of the page
+    var pageHTML = document.documentElement.innerHTML;
+
+    // Check if the code snippet exists in the HTML
+    if (pageHTML.includes(codeSnippet)) {
+        alert('MirrorPageUrl Code Found.');
     } else {
-      alert('MirrorPageUrl Code not found.');
+      alert('MirrorPageUrl Code not Exist.');
     }
   }
   
     // Check trackingPixel code"
-    if (request.action === 'trackingPixel') {
-      const allLinks = document.querySelectorAll('a');
-  
-      let trackingPixelDetected = false;
+  if (request.action === 'trackingPixel') {
+    // Define the code snippet you are looking for
+    var codeSnippet = "https://t.myvisualiq.net";
 
-      allLinks.forEach(link => {
-        if (link.getAttribute('href') === 'https://t.myvisualiq.net') {
-          // console.warn('Empty link found:', link);
-          link.style.border = '2px solid #D2333D';
-          link.style.padding = '2px';
-          trackingPixelDetected = true;
-        }
-      });
-  
-      if (!trackingPixelDetected) {
-        alert('Tracking Pixel found in code.');
-      }
+    // Get the entire HTML of the page
+    var pageHTML = document.documentElement.innerHTML;
+
+    // Check if the code snippet exists in the HTML
+    if (pageHTML.includes(codeSnippet)) {
+        alert('Tracking Pixel Found');
+    } else {
+      alert('Tracking Pixel not Exist.');
     }
-  
+  }
 });
