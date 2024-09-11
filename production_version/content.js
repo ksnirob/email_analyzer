@@ -82,12 +82,19 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
   // Show b tag
   if (request.action === 'checkBTag') {
-    // Select all <b> tags
-    const boldTags = document.querySelectorAll('b');
-      // Apply red border to each tag
-      boldTags.forEach(tag => {
-      tag.style.border = '1px solid red';
-  });
+      // Select all <b> and <strong> tags
+      const boldTags = document.querySelectorAll('b, strong');
+      
+      if (boldTags.length > 0) {
+        // Apply red border to each tag
+        boldTags.forEach(tag => {
+          tag.style.border = '1px solid red';
+          // tag.style.background = 'rgba(255, 0, 0, 0.3)';
+        });
+      } else {
+        // Alert if no bold text is found
+        alert('There is no bold text on this email.');
+      }  
   }
 
 
@@ -96,10 +103,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // Select all <u> tags
   const uTags = document.querySelectorAll('u');
 
-  // Apply red border to each tag
-  uTags.forEach(tag => {
+    
+  if (uTags.length > 0) {
+    // Apply red border to each tag
+    uTags.forEach(tag => {
       tag.style.border = '1px solid red';
-  });
+      // tag.style.background = 'rgba(255, 0, 0, 0.3)';
+    });
+  } else {
+    // Alert if no bold text is found
+    alert('There is underline text on this email.');
+  }
   }
 
   // Show font name and font size tag
@@ -157,7 +171,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     
     }
 
-  // Show u tag
+  // Image information
   if (request.action === 'imageInformation') {
    // Get all image elements on the page
     const images = document.querySelectorAll('img');
