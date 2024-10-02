@@ -112,7 +112,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     });
   } else {
     // Alert if no bold text is found
-    alert('There is underline text on this email.');
+    alert('There is no underline text on this email.');
   }
   }
 
